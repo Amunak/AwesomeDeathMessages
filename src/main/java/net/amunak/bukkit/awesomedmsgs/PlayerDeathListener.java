@@ -16,15 +16,16 @@ package net.amunak.bukkit.awesomedmsgs;
 * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import java.util.ArrayList;
+import java.util.Random;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -55,14 +56,43 @@ public class PlayerDeathListener implements Listener {
     @EventHandler(ignoreCancelled = false, priority = EventPriority.MONITOR)
     public void onPlayerDeathMO(PlayerDeathEvent e) {
         Player killer;
-        if (plugin.getConfig().getBoolean("options.awesomeDeathMessages") && (killer = (Player) e.getEntity().getLastDamageCause().getEntity()) instanceof Player) {
+        if (plugin.getConfig().getBoolean("options.awesomeDeathMessages") && (killer = (Player) e.getEntity().getKiller()) instanceof Player) {
             FancyMessage m = new FancyMessage();
-            m.then(e.getEntity().getDisplayName());
-            m.then(" got killed by ");
+            m.text(e.getEntity().getDisplayName());
+            m.then(" was slain by ");
             m.then(killer.getDisplayName());
-            m.then(" with ");
-            ItemStack i = killer.getItemInHand();
-            m.text((i.hasItemMeta() && i.getItemMeta().hasDisplayName()) ? i.getItemMeta().getDisplayName() : i.getType().name().replace("_", " ").toLowerCase()).color(ChatColor.RED).itemTooltip(i);
+            m.then(" using ");
+            if (killer.getItemInHand().getType().equals(Material.AIR)) {
+                m.then("only his ");
+                m.then("bare hands").color(ChatColor.AQUA);
+                m.then("!");
+            } else {
+                if (killer.getItemInHand().hasItemMeta()) {
+                    if (killer.getItemInHand().getItemMeta().hasDisplayName()) {
+                        m.then(killer.getItemInHand().getItemMeta().getDisplayName()).style(ChatColor.ITALIC, ChatColor.UNDERLINE).color(ChatColor.AQUA);
+                    } else {
+                        if (killer.getItemInHand().getItemMeta().hasEnchants()) {
+                            m.then("enchanted ");
+                        } else {
+                            m.then(new Random().nextBoolean() ? "plain " : "ordinary ");
+                        }
+                        m.then(killer.getItemInHand().getType().toString().replace("_", " ").toLowerCase()).style(ChatColor.UNDERLINE).color(ChatColor.AQUA);
+                    }
+                    m.itemTooltip(killer.getItemInHand());
+                } else {
+                    ArrayList<String> words = new ArrayList<>();
+                    words.add("his ");
+                    words.add("good old ");
+                    words.add("the precious ");
+                    words.add("the only ");
+                    words.add("just a ");
+                    words.add("the powerful ");
+                    words.add("");
+                    m.then(words.get(new Random().nextInt(words.size())));
+
+                    m.then(killer.getItemInHand().getType().toString().replace("_", " ").toLowerCase()).color(ChatColor.AQUA);
+                }
+            }
             for (Player p : plugin.getServer().getOnlinePlayers()) {
                 m.send(p);
             }
