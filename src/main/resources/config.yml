@@ -7,5 +7,8 @@ options:
     #                       of playerDeathEvent can still display their own messages
     defaultMessageMode: keep
     
-    # Should the awesome messages be displayed?
-    awesomeDeathMessages: true
+    # How do you want the Awesome Messages displayed?
+    #   classic (default) - displays a line with some awesome information about the killing weapon
+    #   face - attemtps to draw the killed player's skin (head) in chat
+    #   none - no awesomness: turns off the custom death messages. Why are you using this plugin again?
+    awesomeDeathMessages: classic

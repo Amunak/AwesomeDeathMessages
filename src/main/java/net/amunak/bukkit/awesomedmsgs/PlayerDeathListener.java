@@ -56,7 +56,7 @@ public class PlayerDeathListener implements Listener {
     @EventHandler(ignoreCancelled = false, priority = EventPriority.MONITOR)
     public void onPlayerDeathMO(PlayerDeathEvent e) {
         Player killer;
-        if (plugin.getConfig().getBoolean("options.awesomeDeathMessages") && (killer = (Player) e.getEntity().getKiller()) instanceof Player) {
+        if (plugin.getConfig().getString("options.awesomeDeathMessages").equals("classic") && (killer = (Player) e.getEntity().getKiller()) instanceof Player) {
             FancyMessage m = new FancyMessage();
             m.text(e.getEntity().getDisplayName());
             m.then(" was slain by ");
@@ -96,6 +96,8 @@ public class PlayerDeathListener implements Listener {
             for (Player p : plugin.getServer().getOnlinePlayers()) {
                 m.send(p);
             }
+        } else if (plugin.getConfig().getString("options.awesomeDeathMessages").equals("face")) {
+            // to be implemented
         }
     }
 

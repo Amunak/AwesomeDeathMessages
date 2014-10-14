@@ -19,13 +19,20 @@ package net.amunak.bukkit.awesomedmsgs;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AwesomeDeathMessages extends JavaPlugin {
-    
+
     @Override
     public void onEnable() {
         // Config shenanigans
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         reloadConfig();
+
+        // Detect legacy config
+        if (getConfig().isBoolean("options.awesomeDeathMessages")) {
+            getLogger().warning("options.awesomeDeathMessages is no longer a boolean! Review your config please.");
+            getLogger().info("options.awesomeDeathMessages: defaulting to 'classic'");
+            getConfig().set("options.awesomeDeathMessages", "classic");
+        }
 
         // Register events
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
