@@ -32,9 +32,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class PlayerDeathListener implements Listener {
 
-    protected JavaPlugin plugin;
+    protected AwesomeDeathMessages plugin;
 
-    public PlayerDeathListener(JavaPlugin p) {
+    public PlayerDeathListener(AwesomeDeathMessages p) {
         plugin = p;
     }
 
