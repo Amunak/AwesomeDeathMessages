@@ -1,0 +1,11 @@
+options:
+    # Changes the default messages' behavior:
+    #   keep (default) - does nothing to the default messages
+    #   remove - removes the default message (still allowing other plugins to set their own message)
+    #   forceRemove - removes the message completly
+    #       technical note: plugins that don't use the deathMessage property
+    #                       of playerDeathEvent can still display their own messages
+    defaultMessageMode: keep
+    
+    # Should the awesome messages be displayed?
+    awesomeDeathMessages: true

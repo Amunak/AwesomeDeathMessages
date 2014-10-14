@@ -23,7 +23,10 @@ public class AwesomeDeathMessages extends JavaPlugin
 
     @Override
     public void onEnable() {
-        getLogger().info("Awesome Death Messages loaded");
+        // Config shenanigans
+        this.saveDefaultConfig();
+        this.getConfig().options().copyDefaults(true);
+        this.reloadConfig();
     }
     
 }
