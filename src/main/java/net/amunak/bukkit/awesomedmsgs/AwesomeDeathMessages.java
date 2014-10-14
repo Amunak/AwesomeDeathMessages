@@ -26,6 +26,9 @@ public class AwesomeDeathMessages extends JavaPlugin {
         this.saveDefaultConfig();
         this.getConfig().options().copyDefaults(true);
         this.reloadConfig();
+
+        // Register events
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
     }
-    
+
 }
