@@ -2,4 +2,4 @@ name: AwesomeDeathMessages
 author: Amunak
 version: 1.0.0
 main: net.amunak.bukkit.awesomedmsgs.AwesomeDeathMessages
-prefix: admsgs
+prefix: AwesomeDMSGs
