@@ -1,7 +1,7 @@
 package net.amunak.awesomedmsgs;
 
 /**
-* Copyright 2014 Ji¯Ì Barouö
+* Copyright 2014 Ji≈ô√≠ Barou≈°
 *
 * This program is free software: you can redistribute it and/or modify it under
 * the terms of the GNU General Public License as published by the Free Software
