@@ -1,4 +1,4 @@
-package net.amunak.awesomedmsgs;
+package net.amunak.bukkit.awesomedmsgs;
 
 /**
 * Copyright 2014 Jiří Barouš
