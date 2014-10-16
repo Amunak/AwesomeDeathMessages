@@ -20,6 +20,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class AwesomeDeathMessages extends JavaPlugin {
 
+    private FaceManager faceManager = null;
+    protected boolean usingFaces = false;
+
     @Override
     public void onEnable() {
         // Config shenanigans
@@ -34,8 +37,23 @@ public class AwesomeDeathMessages extends JavaPlugin {
             getConfig().set("options.awesomeDeathMessages", "classic");
         }
 
+        // Create a face manager when appropriate
+        if (getConfig().getString("options.awesomeDeathMessages").equalsIgnoreCase("face")) {
+            usingFaces = true;
+            faceManager = new FaceManager(this);
+        }
+
         // Register events
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
     }
 
+    @Override
+    public void onDisable() {
+        // Clean up after the FaceManager
+        if (faceManager != null) {
+            usingFaces = false;
+            faceManager.flushCache();
+            faceManager = null;
+        }
+    }
 }

@@ -96,7 +96,7 @@ public class PlayerDeathListener implements Listener {
             for (Player p : plugin.getServer().getOnlinePlayers()) {
                 m.send(p);
             }
-        } else if (plugin.getConfig().getString("options.awesomeDeathMessages").equals("face")) {
+        } else if (plugin.usingFaces) {
             // to be implemented
         }
     }
