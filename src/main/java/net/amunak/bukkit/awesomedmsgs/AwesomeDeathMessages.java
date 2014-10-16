@@ -41,6 +41,8 @@ public class AwesomeDeathMessages extends JavaPlugin {
         if (getConfig().getString("options.awesomeDeathMessages").equalsIgnoreCase("face")) {
             usingFaces = true;
             faceManager = new FaceManager(this);
+            
+            getServer().getPluginManager().registerEvents(new FaceManagerListener(this), this);
         }
 
         // Register events
@@ -56,4 +58,9 @@ public class AwesomeDeathMessages extends JavaPlugin {
             faceManager = null;
         }
     }
+
+    public FaceManager getFaceManager() {
+        return faceManager;
+    }
+
 }

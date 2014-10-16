@@ -23,26 +23,28 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Manager used to cache the faces of players
- * 
+ *
  * @author sword
  * @author TeaJizzle
  * @author Amunak
  */
 public class FaceManager {
 
-    protected JavaPlugin plugin;
+    protected final JavaPlugin plugin;
     /**
      * Service URL used to fetch images
-     * <p><tt>{0}</tt> is replaced by player's identifier</p>
+     * <p>
+     * <tt>{0}</tt> is replaced by player's identifier</p>
      */
     public static final String SKIN_API_URL = "https://minotar.net/avatar/{0}/8.png";
-    protected HashMap<UUID, BufferedImage> imageCache;
+    protected ConcurrentHashMap<UUID, BufferedImage> imageCache;
 
     public FaceManager(JavaPlugin p) {
         plugin = p;
@@ -57,7 +59,7 @@ public class FaceManager {
         if (mapCapacity < p.getServer().getOnlinePlayers().size()) {
             mapCapacity = (int) (p.getServer().getOnlinePlayers().size() * 1.4);
         }
-        imageCache = new HashMap<>(mapCapacity);
+        imageCache = new ConcurrentHashMap<>(mapCapacity);
     }
 
     /**
@@ -90,7 +92,8 @@ public class FaceManager {
     }
 
     /**
-     * Tries to fetch a player's face from online resource (skin API) defined by {@link #SKIN_API_URL}
+     * Tries to fetch a player's face from online resource (skin API) defined by
+     * {@link #SKIN_API_URL}
      *
      * @param p
      * @return
